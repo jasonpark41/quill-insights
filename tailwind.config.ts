@@ -18,7 +18,17 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'sans': ['Montserrat', 'system-ui', 'sans-serif'],
+				'montserrat': ['Montserrat', 'system-ui', 'sans-serif'],
+			},
 			colors: {
+				'celebratory-blue': 'hsl(var(--celebratory-blue))',
+				'linen': 'hsl(var(--linen))',
+				'periwinkle': 'hsl(var(--periwinkle))',
+				'jet': 'hsl(var(--jet))',
+				'healthcare-mint': 'hsl(var(--healthcare-mint))',
+				'healthcare-sage': 'hsl(var(--healthcare-sage))',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
