@@ -1,4 +1,4 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const categoryData = [
   { name: 'Jan/San Supplies', spend: 15600, percentage: 34, color: 'hsl(var(--primary))' },
@@ -13,21 +13,10 @@ const categoryData = [
 export const CategorySpendChart = () => {
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <PieChart>
-        <Pie
-          data={categoryData}
-          cx="50%"
-          cy="50%"
-          labelLine={false}
-          label={({ name, percentage }) => `${name}: ${percentage}%`}
-          outerRadius={80}
-          fill="#8884d8"
-          dataKey="spend"
-        >
-          {categoryData.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={entry.color} />
-          ))}
-        </Pie>
+      <BarChart data={categoryData} layout="horizontal">
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis type="number" stroke="hsl(var(--foreground))" />
+        <YAxis dataKey="name" type="category" stroke="hsl(var(--foreground))" width={120} />
         <Tooltip 
           contentStyle={{
             backgroundColor: 'hsl(var(--card))',
@@ -36,7 +25,11 @@ export const CategorySpendChart = () => {
           }}
           formatter={(value: number) => [`$${value.toLocaleString()}`, 'Spend']}
         />
-      </PieChart>
+        <Bar 
+          dataKey="spend" 
+          fill="hsl(var(--primary))"
+        />
+      </BarChart>
     </ResponsiveContainer>
   );
 };

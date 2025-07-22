@@ -31,11 +31,16 @@ const BudgetingDashboard = () => {
             <div>
               <h1 className="text-3xl font-bold font-montserrat mb-2">Smart Budgeting Dashboard</h1>
               <p className="text-primary-foreground/90 text-lg">
-                Healthcare Supply Intelligence for Better Business Decisions
+                Track your facility spending, discover savings, and optimize your supply budget
               </p>
-              <Badge variant="secondary" className="mt-2 bg-healthcare-mint text-jet">
-                Healthcare Optimized
-              </Badge>
+              <div className="flex gap-2 mt-2">
+                <Badge variant="secondary" className="bg-healthcare-mint text-jet">
+                  January 2025
+                </Badge>
+                <Badge variant="secondary" className="bg-healthcare-mint text-jet">
+                  Monthly Report
+                </Badge>
+              </div>
             </div>
             <div className="flex gap-3">
               <Button variant="secondary" className="gap-2">
@@ -45,6 +50,9 @@ const BudgetingDashboard = () => {
               <Button variant="secondary" className="gap-2">
                 <Download className="h-4 w-4" />
                 Export CSV
+              </Button>
+              <Button variant="secondary" className="gap-2">
+                📅 Change Period
               </Button>
               <Button variant="secondary" className="gap-2">
                 <Mail className="h-4 w-4" />
@@ -121,32 +129,23 @@ const BudgetingDashboard = () => {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Spend Trend Chart */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-montserrat">Monthly Spend Trend</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <SpendTrendChart />
-            </CardContent>
-          </Card>
-
-          {/* Category Breakdown */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-montserrat">Spend by Category</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CategorySpendChart />
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Top Items */}
+        {/* Category Breakdown */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="font-montserrat">Top Healthcare Supply Purchases</CardTitle>
+            <CardTitle className="font-montserrat">Spend by Category</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CategorySpendChart />
+          </CardContent>
+        </Card>
+
+        {/* Bulk Purchase Opportunities */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="font-montserrat">Bulk Purchase Opportunities</CardTitle>
+            <p className="text-muted-foreground">
+              Save more by purchasing your frequently ordered items in bulk
+            </p>
           </CardHeader>
           <CardContent>
             <TopItemsTable />
@@ -158,7 +157,7 @@ const BudgetingDashboard = () => {
           <CardHeader>
             <CardTitle className="font-montserrat text-primary">Smart Budget-Savvy Picks</CardTitle>
             <p className="text-muted-foreground">
-              Healthcare-optimized alternatives that can reduce your costs
+              Cost-effective alternatives that can reduce your costs
             </p>
           </CardHeader>
           <CardContent>
@@ -166,12 +165,12 @@ const BudgetingDashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Sponsored Picks */}
+        {/* Quill Rewards+ Member Solutions */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="font-montserrat">Sponsored Healthcare Solutions</CardTitle>
+            <CardTitle className="font-montserrat">Quill Rewards+ Member Solutions</CardTitle>
             <p className="text-muted-foreground">
-              Featured products from trusted healthcare suppliers
+              Exclusive pricing and products for Quill Rewards+ members
             </p>
           </CardHeader>
           <CardContent>

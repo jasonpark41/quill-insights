@@ -1,97 +1,115 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { RefreshCw, ShoppingCart } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { ShoppingCart, Package, Percent } from "lucide-react";
 
-const topItems = [
+const bulkItems = [
   {
-    product: "Purell Advanced Hand Sanitizer",
-    category: "PPE & Safety",
-    spend: 2800,
-    frequency: "Weekly",
-    trend: "up",
-    healthcare: true
-  },
-  {
-    product: "Nitrile Examination Gloves",
-    category: "PPE & Safety", 
-    spend: 2400,
-    frequency: "Bi-weekly",
-    trend: "stable",
-    healthcare: true
-  },
-  {
-    product: "Disinfecting Wipes",
-    category: "Jan/San",
-    spend: 1900,
-    frequency: "Weekly",
-    trend: "up",
-    healthcare: true
-  },
-  {
-    product: "Copy Paper - Multipurpose",
+    item: "Copy Paper (20 lb, Letter Size)",
     category: "Paper",
-    spend: 1200,
-    frequency: "Monthly",
-    trend: "down",
-    healthcare: false
+    regularPrice: 45,
+    bulkPrice: 38,
+    bulkQuantity: "10+ cases",
+    savings: 15,
+    image: "📄"
   },
   {
-    product: "Facial Tissues",
-    category: "Jan/San",
-    spend: 890,
-    frequency: "Bi-weekly",
-    trend: "stable",
-    healthcare: false
+    item: "Black Ink Cartridges",
+    category: "Ink & Toner", 
+    regularPrice: 89,
+    bulkPrice: 72,
+    bulkQuantity: "5+ cartridges",
+    savings: 19,
+    image: "🖨️"
+  },
+  {
+    item: "Disinfecting Wipes",
+    category: "Cleaning",
+    regularPrice: 24,
+    bulkPrice: 20,
+    bulkQuantity: "12+ containers",
+    savings: 17,
+    image: "🧽"
+  },
+  {
+    item: "Hand Sanitizer (8 oz)",
+    category: "Safety",
+    regularPrice: 12,
+    bulkPrice: 9,
+    bulkQuantity: "24+ bottles",
+    savings: 25,
+    image: "🧴"
+  },
+  {
+    item: "File Folders (Letter Size)",
+    category: "Office Supplies",
+    regularPrice: 28,
+    bulkPrice: 24,
+    bulkQuantity: "5+ boxes",
+    savings: 14,
+    image: "📁"
   }
 ];
 
 export const TopItemsTable = () => {
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full">
-        <thead>
-          <tr className="border-b border-border">
-            <th className="text-left py-3 px-2 font-semibold">Product</th>
-            <th className="text-left py-3 px-2 font-semibold">Category</th>
-            <th className="text-right py-3 px-2 font-semibold">Monthly Spend</th>
-            <th className="text-center py-3 px-2 font-semibold">Frequency</th>
-            <th className="text-center py-3 px-2 font-semibold">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {topItems.map((item, index) => (
-            <tr key={index} className="border-b border-border/50 hover:bg-muted/30">
-              <td className="py-4 px-2">
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">{item.product}</span>
-                  {item.healthcare && (
-                    <Badge variant="secondary" className="bg-healthcare-mint text-jet text-xs">
-                      Healthcare Priority
-                    </Badge>
-                  )}
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Item</TableHead>
+          <TableHead>Regular Price</TableHead>
+          <TableHead>Bulk Price</TableHead>
+          <TableHead>Bulk Minimum</TableHead>
+          <TableHead>Savings</TableHead>
+          <TableHead>Actions</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {bulkItems.map((item, index) => (
+          <TableRow key={index}>
+            <TableCell>
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{item.image}</span>
+                <div>
+                  <span className="font-medium">{item.item}</span>
+                  <div className="text-sm text-muted-foreground">{item.category}</div>
                 </div>
-              </td>
-              <td className="py-4 px-2 text-muted-foreground">{item.category}</td>
-              <td className="py-4 px-2 text-right font-semibold">${item.spend.toLocaleString()}</td>
-              <td className="py-4 px-2 text-center">
-                <Badge variant="outline">{item.frequency}</Badge>
-              </td>
-              <td className="py-4 px-2">
-                <div className="flex gap-2 justify-center">
-                  <Button size="sm" variant="outline" className="gap-1">
-                    <RefreshCw className="h-3 w-3" />
-                    Reorder
-                  </Button>
-                  <Button size="sm" variant="outline" className="gap-1">
-                    <ShoppingCart className="h-3 w-3" />
-                    Subscribe
-                  </Button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+              </div>
+            </TableCell>
+            <TableCell className="font-semibold">
+              ${item.regularPrice}
+            </TableCell>
+            <TableCell className="font-semibold text-green-600">
+              ${item.bulkPrice}
+            </TableCell>
+            <TableCell>{item.bulkQuantity}</TableCell>
+            <TableCell>
+              <Badge className="bg-green-100 text-green-800 gap-1">
+                <Percent className="h-3 w-3" />
+                {item.savings}% off
+              </Badge>
+            </TableCell>
+            <TableCell>
+              <div className="flex gap-2">
+                <Button size="sm" className="gap-1">
+                  <ShoppingCart className="h-3 w-3" />
+                  Order Bulk
+                </Button>
+                <Button size="sm" variant="outline">
+                  Add to Cart
+                </Button>
+              </div>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 };

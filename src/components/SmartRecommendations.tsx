@@ -5,34 +5,37 @@ import { ArrowRight, DollarSign, Star } from "lucide-react";
 
 const recommendations = [
   {
-    currentProduct: "Purell Advanced Hand Sanitizer",
+    currentProduct: "Brand Name Hand Sanitizer",
     quillAlternative: "Quill Brand Professional Hand Sanitizer",
     currentSpend: 2800,
     newPrice: 2100,
     savings: 700,
     savingsPercent: 25,
-    category: "PPE & Safety",
-    healthcareBenefit: "EPA approved for healthcare facilities"
+    category: "Safety",
+    benefit: "EPA approved with same active ingredients",
+    image: "🧴"
   },
   {
     currentProduct: "Premium Nitrile Gloves",
-    quillAlternative: "Quill Select Medical Grade Nitrile Gloves",
+    quillAlternative: "Quill Select Nitrile Gloves",
     currentSpend: 2400,
     newPrice: 1920,
     savings: 480,
     savingsPercent: 20,
-    category: "PPE & Safety",
-    healthcareBenefit: "Powder-free, latex-free for sensitive patients"
+    category: "Safety",
+    benefit: "Powder-free, latex-free with same protection",
+    image: "🧤"
   },
   {
     currentProduct: "Brand Name Disinfecting Wipes",
-    quillAlternative: "Quill Professional Hospital-Grade Wipes",
+    quillAlternative: "Quill Professional Disinfecting Wipes",
     currentSpend: 1900,
     newPrice: 1520,
     savings: 380,
     savingsPercent: 20,
-    category: "Jan/San",
-    healthcareBenefit: "Kills 99.9% of viruses and bacteria"
+    category: "Cleaning",
+    benefit: "Kills 99.9% of viruses and bacteria",
+    image: "🧽"
   },
   {
     currentProduct: "Premium Copy Paper",
@@ -42,7 +45,8 @@ const recommendations = [
     savings: 240,
     savingsPercent: 20,
     category: "Paper",
-    healthcareBenefit: "Suitable for patient forms and documentation"
+    benefit: "Same brightness and quality for all printing needs",
+    image: "📄"
   }
 ];
 
@@ -57,7 +61,10 @@ export const SmartRecommendations = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-center">
                   {/* Current Product */}
                   <div>
-                    <h4 className="font-semibold text-sm text-muted-foreground mb-1">Current Purchase</h4>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-2xl">{rec.image}</span>
+                      <h4 className="font-semibold text-sm text-muted-foreground">Current Purchase</h4>
+                    </div>
                     <p className="font-semibold">{rec.currentProduct}</p>
                     <p className="text-sm text-muted-foreground">${rec.currentSpend}/month</p>
                   </div>
@@ -81,14 +88,14 @@ export const SmartRecommendations = () => {
                     <p className="text-sm text-muted-foreground">${rec.newPrice}/month</p>
                     <Badge variant="secondary" className="mt-1 bg-healthcare-mint text-jet">
                       <Star className="h-3 w-3 mr-1" />
-                      Healthcare Optimized
+                      Quality Guaranteed
                     </Badge>
                   </div>
                 </div>
 
-                {/* Healthcare Benefit */}
+                {/* Product Benefit */}
                 <div className="mt-4 p-3 bg-healthcare-mint/20 rounded-md">
-                  <p className="text-sm"><strong>Healthcare Benefit:</strong> {rec.healthcareBenefit}</p>
+                  <p className="text-sm"><strong>Quality Benefit:</strong> {rec.benefit}</p>
                 </div>
               </div>
 
@@ -96,9 +103,6 @@ export const SmartRecommendations = () => {
               <div className="ml-6 flex flex-col gap-2">
                 <Button size="sm" className="gap-1">
                   Compare Details
-                </Button>
-                <Button size="sm" variant="outline" className="gap-1">
-                  Try Sample
                 </Button>
                 <Button size="sm" variant="secondary" className="gap-1">
                   Subscribe & Save
