@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { TrendingDown, TrendingUp, Download, Mail, Target, ShoppingCart, DollarSign, Package } from "lucide-react";
+import { Calendar, Download, Mail, Target, ShoppingCart, DollarSign, Package, TrendingDown, TrendingUp } from "lucide-react";
 import { SpendTrendChart } from "./SpendTrendChart";
 import { CategorySpendChart } from "./CategorySpendChart";
 import { TopItemsTable } from "./TopItemsTable";
@@ -52,7 +52,8 @@ const BudgetingDashboard = () => {
                 Export CSV
               </Button>
               <Button variant="secondary" className="gap-2">
-                📅 Change Period
+                <Calendar className="h-4 w-4" />
+                Change Period
               </Button>
               <Button variant="secondary" className="gap-2">
                 <Mail className="h-4 w-4" />
