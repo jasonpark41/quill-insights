@@ -11,7 +11,7 @@ const categoryData = [
   { name: 'Technology', spend: 2100, percentage: 5, color: '#8ecae6' },
   { name: 'Furniture', spend: 1800, percentage: 4, color: '#219ebc' },
   { name: 'Shipping Supplies', spend: 1500, percentage: 3, color: '#023047' },
-  { name: 'Facility Maintenance', spend: 1200, percentage: 2, color: '#ffb703' },
+  { name: 'Maintenance', spend: 1200, percentage: 2, color: '#ffb703' },
   { name: 'Reception', spend: 1000, percentage: 2, color: '#fb8500' },
   { name: 'Marketing Materials', spend: 900, percentage: 2, color: '#adb5bd' },
 ];

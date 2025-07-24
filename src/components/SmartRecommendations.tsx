@@ -5,48 +5,53 @@ import { ArrowRight, DollarSign, Star } from "lucide-react";
 
 const recommendations = [
   {
-    currentProduct: "Brand Name Hand Sanitizer",
-    quillAlternative: "Quill Brand Professional Hand Sanitizer",
-    currentSpend: 2800,
-    newPrice: 2100,
-    savings: 700,
+    currentProduct: "PURELL Prime Defense Advanced 85% Alcohol Gel Hand Sanitizer",
+    quillAlternative: "Perk 70% Alcohol Gel Hand Sanitizer",
+    currentSpend: 1200,
+    newPrice: 900,
+    savings: 300,
     savingsPercent: 25,
     category: "Safety",
     benefit: "EPA approved with same active ingredients",
-    image: "🧴"
+    image: "/images/brandSanitizer.png",
+    quillImage: "/images/perkSanitizer.png"
+
   },
   {
-    currentProduct: "Premium Nitrile Gloves",
-    quillAlternative: "Quill Select Nitrile Gloves",
-    currentSpend: 2400,
-    newPrice: 1920,
-    savings: 480,
-    savingsPercent: 20,
-    category: "Safety",
-    benefit: "Powder-free, latex-free with same protection",
-    image: "🧤"
+    currentProduct: "Softsoap Liquid Hand Soap, Soothing Clean Scent",
+    quillAlternative: "Quill Brand® Moisturizing Hand Soap; Aloe Formula, Floral Scent",
+    currentSpend: 2500,
+    newPrice: 2100,
+    savings: 400,
+    savingsPercent: 16,
+    category: "Cleaning",
+    benefit: "Gentle on skin, dermatologist tested",
+    image: "/images/brandSoap.png",
+    quillImage: "/images/quillSoap.png"
   },
   {
-    currentProduct: "Brand Name Disinfecting Wipes",
-    quillAlternative: "Quill Professional Disinfecting Wipes",
+    currentProduct: "CloroxPro Disinfecting Wipes, Fresh Scent, 75 Wipes/Container",
+    quillAlternative: "Perk™ Disinfecting Wipes, Fresh, 75 Wipes/Pack",
     currentSpend: 1900,
     newPrice: 1520,
     savings: 380,
     savingsPercent: 20,
     category: "Cleaning",
     benefit: "Kills 99.9% of viruses and bacteria",
-    image: "🧽"
+    image: "/images/brandWipes.png",
+    quillImage: "/images/quillWipes.png"
   },
   {
-    currentProduct: "Premium Copy Paper",
-    quillAlternative: "Quill Brand Multipurpose Paper",
+    currentProduct: "Sharpie Permanent Marker, Fine Tip, Black, 12/Pack",
+    quillAlternative: "Quill Brand® Permanent Markers, Chisel Tip, Black, 12/Pack",
     currentSpend: 1200,
-    newPrice: 960,
-    savings: 240,
-    savingsPercent: 20,
-    category: "Paper",
-    benefit: "Same brightness and quality for all printing needs",
-    image: "📄"
+    newPrice: 1000,
+    savings: 200,
+    savingsPercent: 17,
+    category: "Office Supplies",
+    benefit: "Bold, long-lasting ink with same quality",
+    image: "/images/brandMarkers.png",
+    quillImage: "/images/quillMarkers.png"
   }
 ];
 
@@ -62,7 +67,9 @@ export const SmartRecommendations = () => {
                   {/* Current Product */}
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-2xl">{rec.image}</span>
+                      <div className="w-20 h-20 bg-white rounded-md flex items-center justify-center p-2">
+                        <img src={rec.image} alt={rec.currentProduct} className="max-w-full max-h-full object-contain" />
+                      </div>
                       <h4 className="font-semibold text-sm text-muted-foreground">Current Purchase</h4>
                     </div>
                     <p className="font-semibold">{rec.currentProduct}</p>
@@ -83,7 +90,12 @@ export const SmartRecommendations = () => {
 
                   {/* Quill Alternative */}
                   <div>
-                    <h4 className="font-semibold text-sm text-primary mb-1">Quill Alternative</h4>
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-20 h-20 bg-white rounded-md flex items-center justify-center p-2">
+                        <img src={rec.quillImage} alt={rec.quillAlternative} className="max-w-full max-h-full object-contain" />
+                      </div>
+                      <h4 className="font-semibold text-sm text-primary">Quill Alternative</h4>
+                    </div>
                     <p className="font-semibold">{rec.quillAlternative}</p>
                     <p className="text-sm text-muted-foreground">${rec.newPrice}/month</p>
                     <Badge variant="secondary" className="mt-1 bg-healthcare-mint text-jet">

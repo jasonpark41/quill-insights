@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Download, Mail, Target, ShoppingCart, DollarSign, Package, TrendingDown, TrendingUp } from "lucide-react";
-import { SpendTrendChart } from "./SpendTrendChart";
 import { CategorySpendChart } from "./CategorySpendChart";
 import { TopItemsTable } from "./TopItemsTable";
 import { SmartRecommendations } from "./SmartRecommendations";
@@ -15,7 +14,7 @@ const BudgetingDashboard = () => {
     previousSpend: 51200,
     orders: 127,
     avgOrderValue: 360,
-    categoriesCount: 8,
+    categoriesCount: 13,
     estimatedSavings: 3200,
     rewardsRedeemed: 850
   };
@@ -28,18 +27,21 @@ const BudgetingDashboard = () => {
       <div className="bg-primary text-primary-foreground py-8">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-start">
-            <div>
-              <h1 className="text-3xl font-bold font-montserrat mb-2">Smart Budgeting Dashboard</h1>
-              <p className="text-primary-foreground/90 text-lg">
-                Track your facility spending, discover savings, and optimize your supply budget
-              </p>
-              <div className="flex gap-2 mt-2">
-                <Badge variant="secondary" className="bg-healthcare-mint text-jet">
-                  January 2025
-                </Badge>
-                <Badge variant="secondary" className="bg-healthcare-mint text-jet">
-                  Monthly Report
-                </Badge>
+            <div className="flex items-start gap-4 -ml-4">
+              <span className="text-7xl font-bold text-primary-foreground">Quill</span>
+              <div>
+                <h1 className="text-3xl font-bold font-montserrat mb-2">Smart Budgeting Dashboard</h1>
+                <p className="text-primary-foreground/90 text-lg">
+                  Track your facility spending, discover savings, and optimize your supply budget
+                </p>
+                <div className="flex gap-2 mt-2">
+                  <Badge variant="secondary" className="bg-healthcare-mint text-jet">
+                    January 2025
+                  </Badge>
+                  <Badge variant="secondary" className="bg-healthcare-mint text-jet">
+                    Monthly Report
+                  </Badge>
+                </div>
               </div>
             </div>
             <div className="flex gap-3">
@@ -156,7 +158,7 @@ const BudgetingDashboard = () => {
         {/* Smart Recommendations */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="font-montserrat text-primary">Smart Budget-Savvy Picks</CardTitle>
+            <CardTitle className="font-montserrat text-primary">Quill Budget-Savvy Picks</CardTitle>
             <p className="text-muted-foreground">
               Cost-effective alternatives that can reduce your costs
             </p>
