@@ -141,3 +141,5 @@ export const SmartRecommendations = () => {
     </div>
   );
 };
+
+export { recommendations };

@@ -1,72 +1,131 @@
+import React, { useState, useRef } from "react";
+import { Sidebar } from "./Sidebar";
+import { DashboardHeader } from "./DashboardHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { AlertTriangle, Gift } from "lucide-react";
 import { Calendar, Download, Mail, Target, ShoppingCart, DollarSign, Package, TrendingDown, TrendingUp } from "lucide-react";
 import { CategorySpendChart } from "./CategorySpendChart";
 import { TopItemsTable } from "./TopItemsTable";
 import { SmartRecommendations } from "./SmartRecommendations";
 import { SponsoredPicks } from "./SponsoredPicks";
+import { TopPurchasedItems } from "./TopPurchasedItems";
+import { exportToPdf } from '@/lib/export';
+import { bulkItems, rewardsProducts, categoryData, items, sponsoredItems } from "@/data/mockData";
 
 const BudgetingDashboard = () => {
-  // Mock data for healthcare business
+  // Mock data for display
   const summaryData = {
     totalSpend: 45800,
     previousSpend: 51200,
     orders: 127,
     avgOrderValue: 360,
     categoriesCount: 13,
-    estimatedSavings: 3200,
-    rewardsRedeemed: 850
+    estimatedSavings: 8600,
+    estimatedMissedSavings: 5320,
+    rewardsPoints: 12300
   };
 
-  const changePercent = ((summaryData.totalSpend - summaryData.previousSpend) / summaryData.previousSpend * 100);
+  // Complete export data object with all required properties
+  const exportData = {
+    summary: [
+      { metric: 'Monthly Spend', value: `$${summaryData.totalSpend.toLocaleString()}` },
+      { metric: 'Previous Spend', value: `$${summaryData.previousSpend.toLocaleString()}` },
+      { metric: 'Orders Placed', value: summaryData.orders },
+      { metric: 'Average Order Value', value: `$${summaryData.avgOrderValue}` },
+      { metric: 'Categories Purchased', value: summaryData.categoriesCount },
+      { metric: 'Total Dollars Saved', value: `$${summaryData.estimatedSavings.toLocaleString()}` },
+      { metric: 'Total Dollars Missed', value: `$${summaryData.estimatedMissedSavings.toLocaleString()}` },
+      { metric: 'Rewards+ Points', value: `${summaryData.rewardsPoints.toLocaleString()}` }
+    ],
+    categorySpend: categoryData.map(category => ({
+      Category: category.name,
+      Spend: `$${category.spend.toLocaleString()}`,
+      Savings: `$${category.savings.toLocaleString()}`,
+      Percentage: `${category.percentage}%`,
+    })),
+    topPurchasedItems: items.slice(0, 8).map(item => ({
+      Name: item.name,
+      Category: item.category,
+      Source: item.source,
+    })),
+    budgetSavvyPicks: sponsoredItems.map(item => ({
+      Product: item.product,
+      Category: item.category,
+      Price: item.price,
+      'Savings Note': item.sponsoredNote,
+    })),
+    bulkItems: bulkItems.map(item => ({
+      Item: item.item,
+      Category: item.category,
+      'Regular Price': `$${item.regularPrice}`,
+      'Bulk Price': `$${item.bulkPrice}`,
+      'Bulk Quantity': item.bulkQuantity,
+      'Savings (%)': `${item.savings}%`,
+    })),
+    sponsoredPicks: rewardsProducts.map(product => ({
+      Product: product.product,
+      Category: product.category,
+      Vendor: product.vendor,
+      Price: product.price,
+      'Rewards Benefit': product.rewardsFeature,
+    })),
+  };
+
+  const handleExport = (fileType: 'PDF' | 'XLSX') => {
+    if (fileType === 'PDF') {
+      exportToPdf(exportData, 'Budget Report');
+    } else {
+      // Download pre-made Excel file
+      const link = document.createElement('a');
+      link.href = '/budgetReport(xlsx).xlsx';
+      link.setAttribute('download', 'budgetReport.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [period, setPeriod] = useState("Monthly");
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Sidebar trigger */}
+      <button
+        className="fixed top-4 left-4 z-50 bg-primary text-white p-2 rounded"
+        onClick={() => setSidebarOpen(true)}
+      >
+        ☰
+      </button>
+      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+
       {/* Header */}
-      <div className="bg-primary text-primary-foreground py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-start">
-            <div className="flex items-start gap-4 -ml-4">
-              <span className="text-7xl font-bold text-primary-foreground">Quill</span>
-              <div>
-                <h1 className="text-3xl font-bold font-montserrat mb-2">Smart Budgeting Dashboard</h1>
-                <p className="text-primary-foreground/90 text-lg">
-                  Track your facility spending, discover savings, and optimize your supply budget
-                </p>
-                <div className="flex gap-2 mt-2">
-                  <Badge variant="secondary" className="bg-healthcare-mint text-jet">
-                    January 2025
-                  </Badge>
-                  <Badge variant="secondary" className="bg-healthcare-mint text-jet">
-                    Monthly Report
-                  </Badge>
-                </div>
-              </div>
-            </div>
-            <div className="flex gap-3">
-              <Button variant="secondary" className="gap-2">
-                <Download className="h-4 w-4" />
-                Export PDF
-              </Button>
-              <Button variant="secondary" className="gap-2">
-                <Download className="h-4 w-4" />
-                Export CSV
-              </Button>
-              <Button variant="secondary" className="gap-2">
-                <Calendar className="h-4 w-4" />
-                Change Period
-              </Button>
-              <Button variant="secondary" className="gap-2">
-                <Mail className="h-4 w-4" />
-                Email Settings
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <DashboardHeader
+        handleExport={handleExport}
+        dropdownRef={dropdownRef}
+        open={open}
+        setOpen={setOpen}
+        period={period}
+        setPeriod={setPeriod}
+      />
 
       <div className="container mx-auto px-4 py-8">
+        {/* Smart Overview Title */}
+        <h2 className="text-2xl font-bold mb-4" style={{ color: "#000" }}>Smart Overview</h2>
+
         {/* Summary Snapshot */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
@@ -76,19 +135,9 @@ const BudgetingDashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">${summaryData.totalSpend.toLocaleString()}</div>
-              <div className="flex items-center text-sm">
-                {changePercent < 0 ? (
-                  <>
-                    <TrendingDown className="h-4 w-4 text-green-600 mr-1" />
-                    <span className="text-green-600">{Math.abs(changePercent).toFixed(1)}% decrease</span>
-                  </>
-                ) : (
-                  <>
-                    <TrendingUp className="h-4 w-4 text-red-600 mr-1" />
-                    <span className="text-red-600">{changePercent.toFixed(1)}% increase</span>
-                  </>
-                )}
-              </div>
+              <p className="text-xs text-muted-foreground">
+                vs. ${summaryData.previousSpend.toLocaleString()} last month
+              </p>
             </CardContent>
           </Card>
 
@@ -120,13 +169,39 @@ const BudgetingDashboard = () => {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Potential Savings</CardTitle>
+              <CardTitle className="text-sm font-medium">Total Dollars Saved</CardTitle>
               <Target className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-600">${summaryData.estimatedSavings.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 With smart recommendations
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Dollars Missed</CardTitle>
+              <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-red-500">${summaryData.estimatedMissedSavings.toLocaleString()}</div>
+              <p className="text-xs text-muted-foreground">
+                Without smart recommendations
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Rewards+ Points</CardTitle>
+              <Gift className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-[#2B58F1]">{summaryData.rewardsPoints.toLocaleString()}</div>
+              <p className="text-xs text-muted-foreground">
+                Ready to be used for savings
               </p>
             </CardContent>
           </Card>
@@ -141,6 +216,9 @@ const BudgetingDashboard = () => {
             <CategorySpendChart />
           </CardContent>
         </Card>
+
+        {/* Top Purchased Items */}
+        <TopPurchasedItems />
 
         {/* Bulk Purchase Opportunities */}
         <Card className="mb-8">
@@ -180,6 +258,7 @@ const BudgetingDashboard = () => {
             <SponsoredPicks />
           </CardContent>
         </Card>
+
       </div>
     </div>
   );

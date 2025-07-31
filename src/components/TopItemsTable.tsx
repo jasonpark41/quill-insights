@@ -10,53 +10,7 @@ import {
 } from "@/components/ui/table";
 import { ShoppingCart, Package, Percent } from "lucide-react";
 
-const bulkItems = [
-  {
-    item: "Hammermill Copy Plus 8.5\" x 11\" Copy Paper, 20 lbs",
-    category: "Paper",
-    regularPrice: 164.99,
-    bulkPrice: 139.99,
-    bulkQuantity: "20 cases",
-    savings: 15, // %
-    image: "/images/paper.png",
-  },
-  {
-    item: "Canon 275 XL Black High Yield Ink Cartridge",
-    category: "Ink & Toner",
-    regularPrice: 369.99,
-    bulkPrice: 319.99,
-    bulkQuantity: "10 cartridges",
-    savings: 13, // %
-    image: "/images/ink.png",
-  },
-  {
-    item: "CloroxPro Disinfecting Wipes, Fresh Scent, 75 Wipes/Container",
-    category: "Cleaning",
-    regularPrice: 139.75,
-    bulkPrice: 119.99,
-    bulkQuantity: "25 containers",
-    savings: 14, // %
-    image: "/images/wipes.png",
-  },
-  {
-    item: "PURELL Advanced Hand Sanitizer Refreshing Gel, Clean Scent, 1.5 Liter Pump Bottle",
-    category: "Safety",
-    regularPrice: 329.85,
-    bulkPrice: 289.99,
-    bulkQuantity: "15 bottles",
-    savings: 12, // %
-    image: "/images/sanitizer.png",
-  },
-  {
-    item: "Quill Brand® File Folders, 1/3-Cut Assorted, Letter Size, Manila, 100/Box",
-    category: "Office Supplies",
-    regularPrice: 169.90,
-    bulkPrice: 149.99,
-    bulkQuantity: "10 boxes",
-    savings: 12, // %
-    image: "/images/folders.png",
-  }
-];
+import { bulkItems } from "@/data/mockData";
 
 export const TopItemsTable = () => {
   return (
@@ -80,7 +34,7 @@ export const TopItemsTable = () => {
                 <img
                   src={item.image}
                   alt={item.item}
-                  className="w-10 h-10 object-contain"
+                  className="w-10 h-10 object-contain mix-blend-multiply"
                 />
                 <div>
                   <span className="font-medium">{item.item}</span>

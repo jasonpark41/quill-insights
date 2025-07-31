@@ -3,52 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink, Star, Shield, Award, ArrowRight } from "lucide-react";
 
-const rewardsProducts = [
-  {
-    product: "Quill Elite Multi-Surface Cleaner",
-    category: "Cleaning",
-    vendor: "Quill Corporation",
-    sponsoredNote: "Exclusive Rewards+ member pricing - 20% off regular price",
-    price: "$67.99/case",
-    features: ["All-purpose formula", "Streak-free finish", "Pleasant scent"],
-    rewardsFeature: "Earn 2x points on all cleaning supply purchases",
-    badgeType: "rewards",
-    image: "🧽"
-  },
-  {
-    product: "Quill Professional Paper Towels",
-    category: "Paper Products",
-    vendor: "Quill Corporation",
-    sponsoredNote: "Rewards+ exclusive - Premium quality at member prices",
-    price: "$89.99/case",
-    features: ["2-ply absorbent", "Perforated sheets", "Bulk packaging"],
-    rewardsFeature: "Free shipping on orders over $50",
-    badgeType: "rewards",
-    image: "🧻"
-  },
-  {
-    product: "Quill Select Office Chair",
-    category: "Furniture",
-    vendor: "Quill Corporation",
-    sponsoredNote: "Member exclusive - Ergonomic design with extended warranty",
-    price: "$299.99/each",
-    features: ["Ergonomic support", "Adjustable height", "5-year warranty"],
-    rewardsFeature: "Extended warranty and priority customer service",
-    badgeType: "rewards",
-    image: "🪑"
-  },
-  {
-    product: "Quill Premium Ink Cartridges",
-    category: "Ink & Toner",
-    vendor: "Quill Corporation",
-    sponsoredNote: "Rewards+ pricing - Same quality, better value",
-    price: "$34.99/cartridge",
-    features: ["High-yield capacity", "Fade-resistant", "Compatible guarantee"],
-    rewardsFeature: "Automatic reorder discounts available",
-    badgeType: "rewards",
-    image: "🖨️"
-  }
-];
+import { rewardsProducts } from "@/data/mockData";
 
 const getBadgeIcon = (type: string) => {
   switch(type) {
@@ -75,7 +30,7 @@ export const SponsoredPicks = () => {
               </div>
 
               <div className="flex items-center gap-3 mb-2">
-                <span className="text-3xl">{product.image}</span>
+                <img src={product.image} alt={product.product} className="w-24 h-24 object-contain rounded-md mix-blend-multiply" />
                 <h4 className="font-bold text-lg">{product.product}</h4>
               </div>
               
