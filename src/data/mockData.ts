@@ -59,15 +59,15 @@ export const rewardsProducts = [
     image: "images/gloves.png"
   },
   {
-    product: "Apple AirPods Noise-Canceling Earbuds with USB-C Charging Case, 4th Generation",
-    category: "Headphones",
-    vendor: "Apple",
+    product: "Coastwide Professional Antibacterial Liquid Hand Soap Refill, 1 Gal., 4/Carton",
+    category: "Hand Soap",
+    vendor: "Coastwide Professional",
     sponsoredNote: "Rewards+ exclusive - Premium quality at member prices",
-    price: "$210.99",
-    features: ["Dust, sweat, and water resistant", "Improved sound and call quality", "Long battery life"],
+    price: "$63.99",
+    features: ["1 gal. refill bottle, four bottles per carton", "Liquid hand soap refill that is mild to the skin", "Unscented antibacterial soap"],
     rewardsFeature: "Free shipping on orders over $50",
     badgeType: "rewards",
-    image: "images/airpods.png"
+    image: "images/soap.png"
   },
   {
     product: "Quill Brand® Kelburne Luxura Faux Leather Computer and Desk Chair",
