@@ -1,7 +1,17 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, DollarSign, Star } from "lucide-react";
+
+interface SmartRecommendationsProps {
+  data: {
+    product: string;
+    category: string;
+    price: string;
+    sponsoredNote: string;
+  }[];
+}
 
 const recommendations = [
   {
@@ -142,4 +152,3 @@ export const SmartRecommendations = () => {
   );
 };
 
-export { recommendations };

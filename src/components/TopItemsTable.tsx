@@ -8,11 +8,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ShoppingCart, Package, Percent } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 
-import { bulkItems } from "@/data/mockData";
+interface TopItemsTableProps {
+  data: any[];
+}
 
-export const TopItemsTable = () => {
+export const TopItemsTable = ({ data }: TopItemsTableProps) => {
   return (
     <Table>
       <TableHeader>
@@ -26,11 +28,10 @@ export const TopItemsTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {bulkItems.map((item, index) => (
+        {data.map((item, index) => (
           <TableRow key={index}>
             <TableCell>
               <div className="flex items-center gap-3">
-                {/* Render the image */}
                 <img
                   src={item.image}
                   alt={item.item}

@@ -1,27 +1,41 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { ExternalLink, Star, Shield, Award, ArrowRight } from "lucide-react";
+import { ExternalLink, Star, CheckCircle } from "lucide-react";
 
-import { rewardsProducts } from "@/data/mockData";
+interface Product {
+  category: string;
+  image: string;
+  product: string;
+  vendor: string;
+  price: string;
+  rewardsFeature: string;
+  description?: string;
+  sponsoredNote?: string;
+}
 
-const getBadgeIcon = (type: string) => {
-  switch(type) {
-    case "rewards": return <Star className="h-3 w-3" />;
-    default: return <Star className="h-3 w-3" />;
+interface SponsoredPicksProps {
+  data: Product[];
+}
+
+export const SponsoredPicks = ({ data }: SponsoredPicksProps) => {
+  if (!data || data.length === 0) {
+    return (
+      <div className="p-4 text-center text-muted-foreground">
+        No rewards products available
+      </div>
+    );
   }
-};
 
-export const SponsoredPicks = () => {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {rewardsProducts.map((product, index) => (
+        {data.map((product, index) => (
           <Card key={index} className="border border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-3">
                 <Badge variant="outline" className="bg-primary text-primary-foreground gap-1">
-                  {getBadgeIcon(product.badgeType)}
+                  <Star className="h-3 w-3" />
                   Rewards+ Exclusive
                 </Badge>
                 <Badge variant="secondary" className="text-xs">
@@ -47,21 +61,27 @@ export const SponsoredPicks = () => {
                 </div>
               </div>
 
-              <div className="mb-4">
-                <p className="text-sm text-muted-foreground mb-2">Key Features:</p>
-                <ul className="text-xs space-y-1">
-                  {product.features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-1">
-                      <div className="w-1 h-1 bg-primary rounded-full"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {/* FIXED: Use description instead of features */}
+              {product.description && (
+                <div className="mb-4">
+                  <p className="text-sm text-muted-foreground mb-2">Key Features:</p>
+                  <ul className="text-xs space-y-1">
+                    {product.description.split('.').filter(sentence => sentence.trim()).map((feature, i) => (
+                      <li key={i} className="flex items-center gap-1">
+                        <div className="w-1 h-1 bg-primary rounded-full"></div>
+                        {feature.trim()}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-              <div className="bg-primary/10 p-3 rounded-md mb-4">
-                <p className="text-sm font-medium text-primary">"{product.sponsoredNote}"</p>
-              </div>
+              {/* Only show if sponsoredNote exists */}
+              {product.sponsoredNote && (
+                <div className="bg-primary/10 p-3 rounded-md mb-4">
+                  <p className="text-sm font-medium text-primary">"{product.sponsoredNote}"</p>
+                </div>
+              )}
 
               <div className="flex gap-2">
                 <Button size="sm" className="flex-1 gap-1">

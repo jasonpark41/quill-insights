@@ -1,16 +1,18 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
-import { categoryData } from "@/data/mockData";
+interface CategorySpendChartProps {
+  data: any[];
+}
 
-export const CategorySpendChart = () => {
+export const CategorySpendChart = ({ data }: CategorySpendChartProps) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={categoryData} barCategoryGap={32}>
+      <BarChart data={data} barCategoryGap={32}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey="name"
-          tick={{ fontSize: 11 }} // Smaller font size for labels
-          interval={0} // Force all labels to show
+          tick={{ fontSize: 11 }}
+          interval={0}
         />
         <YAxis />
         <Tooltip
@@ -21,7 +23,7 @@ export const CategorySpendChart = () => {
           }}
           formatter={(value: number, name: string) => [
             `$${value.toLocaleString()}`,
-            name // This will show "Spend" or "Savings" as set in <Bar name="..."/>
+            name
           ]}
         />
         <Legend />
