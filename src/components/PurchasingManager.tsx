@@ -9,6 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Users, FileCheck, Settings, CheckCircle, Download, Mail, Send } from "lucide-react";
+import { exportToPdf } from '@/lib/export';
+import { exportFormToPdf } from '@/lib/export';
 
 const PurchasingManager = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -28,8 +30,76 @@ const PurchasingManager = () => {
     specialInstructions: ""
   });
 
-  // Dummy handler for export buttons
-  const handleExport = () => {};
+  // Same export data as BudgetingDashboard - this is what was missing!
+  const exportData = {
+    summary: [
+      { metric: 'Monthly Spend', value: '$45,800' },
+      { metric: 'Previous Spend', value: '$51,200' },
+      { metric: 'Orders Placed', value: '127' },
+      { metric: 'Average Order Value', value: '$360' },
+      { metric: 'Categories Purchased', value: '13' },
+      { metric: 'Total Dollars Saved', value: '$8,600' },
+      { metric: 'Total Dollars Missed', value: '$5,320' },
+      { metric: 'Rewards+ Points', value: '12,300' }
+    ],
+    categorySpend: [
+      { Category: 'Jan/San Supplies', Spend: '$15,600', Savings: '$1,400' },
+      { Category: 'PPE & Safety', Spend: '$8,900', Savings: '$1,100' },
+      { Category: 'Paper Products', Spend: '$7,400', Savings: '$950' },
+      { Category: 'Ink & Cartridges', Spend: '$5,200', Savings: '$900' },
+      { Category: 'Breakroom', Spend: '$3,600', Savings: '$700' },
+      { Category: 'Medical Supplies', Spend: '$2,800', Savings: '$650' },
+      { Category: 'Office Supplies', Spend: '$2,300', Savings: '$600' },
+      { Category: 'Technology', Spend: '$2,100', Savings: '$500' },
+      { Category: 'Furniture', Spend: '$1,800', Savings: '$450' },
+      { Category: 'Shipping Supplies', Spend: '$1,500', Savings: '$400' },
+      { Category: 'Maintenance', Spend: '$1,200', Savings: '$350' },
+      { Category: 'Reception', Spend: '$1,000', Savings: '$300' },
+      { Category: 'Marketing Materials', Spend: '$900', Savings: '$300' }
+    ],
+    topPurchasedItems: [
+      { Name: 'Hammermill Copy Plus 8.5" x 11" Copy Paper, 20 lbs', Category: 'Copy & Printer Paper', Vendor: 'Hammermill' },
+      { Name: 'Canon 275 XL Black High Yield Ink Cartridge', Category: 'Ink & Toner', Vendor: 'Canon' },
+      { Name: 'CloroxPro Disinfecting Wipes, Fresh Scent, 75 Wipes/Container', Category: 'Disinfectant Wipes', Vendor: 'Clorox' },
+      { Name: 'Quill Brand® File Folders, 1/3-Cut Assorted, Letter Size, Manila, 100/Box', Category: 'File Folders', Vendor: 'Quill Brand' },
+      { Name: 'PURELL Advanced Hand Sanitizer Refreshing Gel, Clean Scent, 1.5 Liter Pump Bottle', Category: 'Bottled Hand Sanitizer', Vendor: 'Purrell' },
+      { Name: 'Ammex Professional Series Powder Free Nitrile Exam Gloves, Latex Free, XL, Blue', Category: 'Safety Supplies', Vendor: 'Ammex' },
+      { Name: 'Coastwide Professional Antibacterial Liquid Hand Soap Refill, 1 Gal., 4/Carton', Category: 'Hand Soap', Vendor: 'Coastwide' },
+      { Name: 'Advil Ibuprofen Pain Reliever, 200mg, 2/Packet, 50 Packets/Box', Category: 'Pain Relievers', Vendor: 'Advil' }
+    ],
+    budgetSavvyPicks: [
+      { Product: 'PURELL Prime Defense Advanced 85% Alcohol Gel Hand Sanitizer', Category: 'Bottled Hand Sanitizer', 'Brand Price Per Month': '$1,200.00', 'Quill Price Per Month': '$900', 'Savings Per Month': '$300' },
+      { Product: 'Softsoap Liquid Hand Soap, Soothing Clean Scent', Category: 'Hand Soap', 'Brand Price Per Month': '$2,500.00', 'Quill Price Per Month': '$2,100', 'Savings Per Month': '$400' },
+      { Product: 'CloroxPro Disinfecting Wipes, Fresh Scent, 75 Wipes/Container', Category: 'Disinfectant Wipes', 'Brand Price Per Month': '$1,900.00', 'Quill Price Per Month': '$1,520', 'Savings Per Month': '$380' },
+      { Product: 'Sharpie Permanent Marker, Fine Tip, Black, 12/Pack', Category: 'Permanent Markers', 'Brand Price Per Month': '$1,200.00', 'Quill Price Per Month': '$1,000', 'Savings Per Month': '$200' }
+    ],
+    bulkItems: [
+      { Item: 'Hammermill Copy Plus 8.5" x 11" Copy Paper, 20 lbs', Category: 'Copy & Printer Paper', 'Regular Price': '$164.99', 'Bulk Price': '$139.99', 'Bulk Quantity': '20 cases', 'Savings (%)': '15%' },
+      { Item: 'Canon 275 XL Black High Yield Ink Cartridge', Category: 'Ink & Toner', 'Regular Price': '$369.99', 'Bulk Price': '$319.99', 'Bulk Quantity': '10 cartridges', 'Savings (%)': '13%' },
+      { Item: 'CloroxPro Disinfecting Wipes, Fresh Scent, 75 Wipes/Container', Category: 'Disinfectant Wipes', 'Regular Price': '$139.75', 'Bulk Price': '$119.99', 'Bulk Quantity': '25 containers', 'Savings (%)': '14%' },
+      { Item: 'PURELL Advanced Hand Sanitizer Refreshing Gel, Clean Scent, 1.5 Liter Pump Bottle', Category: 'Bottled Hand Sanitizer', 'Regular Price': '$329.85', 'Bulk Price': '$289.99', 'Bulk Quantity': '15 bottles', 'Savings (%)': '12%' },
+      { Item: 'Quill Brand® File Folders, 1/3-Cut Assorted, Letter Size, Manila, 100/Box (740137)', Category: 'File Folders', 'Regular Price': '$169.90', 'Bulk Price': '$149.99', 'Bulk Quantity': '10 boxes', 'Savings (%)': '12%' }
+    ],
+    sponsoredPicks: [
+      { Product: 'Ammex Professional Series Powder Free Nitrile Exam Gloves, Latex Free, XL, Blue', Category: 'Safety Supplies', Vendor: 'Ammex', Price: '$79.89', 'Rewards Benefit': 'Earn 2x points on all gaming purchases' },
+      { Product: 'Coastwide Professional Antibacterial Liquid Hand Soap Refill, 1 Gal., 4/Carton', Category: 'Hand Soap', Vendor: 'Coastwide Professional', Price: '$63.99', 'Rewards Benefit': 'Free shipping on orders over $50' },
+      { Product: 'Advil Ibuprofen Pain Reliever, 200mg, 2/Packet, 50 Packets/Box', Category: 'Pain Relievers', Vendor: 'Advil', Price: '$18.56', 'Rewards Benefit': 'Earn 1 point for every dollar spent on health products' },
+      { Product: 'WeCare KN95 Disposable Face Mask, Adult, Black, 20 Masks/Box, 3 Boxes/Pack', Category: 'Face Masks', Vendor: 'WeCare', Price: '$69.99', 'Rewards Benefit': 'Automatic reorder discounts available' }
+    ]
+  };
+
+  const handleExport = (fileType: 'pdf' | 'excel') => {
+    if (fileType === 'pdf') {
+      exportToPdf(exportData, 'Budget Report'); // Now this will work!
+    } else if (fileType === 'excel') {  
+      const link = document.createElement('a');
+      link.href = '/budgetReport.xlsx';
+      link.setAttribute('download', 'budgetReport.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
