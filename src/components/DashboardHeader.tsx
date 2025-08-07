@@ -35,7 +35,7 @@ export const DashboardHeader = ({
                 January 2025
               </Badge>
               <Badge variant="secondary" className="bg-healthcare-mint text-jet">
-                Monthly Report
+                {period} Report
               </Badge>
             </div>
           </div>
