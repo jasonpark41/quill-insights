@@ -4,7 +4,7 @@ import { Download, Calendar, Mail } from "lucide-react";
 import React, { RefObject } from "react";
 
 type DashboardHeaderProps = {
-  handleExport: (type: "PDF" | "XLSX") => void; // Removed CSV, kept PDF and XLSX
+  handleExport: (type: "pdf" | "excel") => void;
   dropdownRef: RefObject<HTMLDivElement>;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,11 +41,11 @@ export const DashboardHeader = ({
           </div>
         </div>
         <div className="flex gap-3">
-          <Button variant="secondary" className="gap-2" onClick={() => handleExport('PDF')}>
+          <Button variant="secondary" className="gap-2" onClick={() => handleExport('pdf')}>
             <Download className="h-4 w-4" />
             Export PDF
           </Button>
-          <Button variant="secondary" className="gap-2" onClick={() => handleExport('XLSX')}>
+          <Button variant="secondary" className="gap-2" onClick={() => handleExport('excel')}>
             <Download className="h-4 w-4" />
             Export Excel
           </Button>

@@ -168,10 +168,10 @@ const BudgetingDashboard = () => {
     ]
   };
 
-  const handleExport = (fileType: 'PDF' | 'XLSX') => {
-    if (fileType === 'PDF') {
+  const handleExport = (fileType: 'pdf' | 'excel') => {
+    if (fileType === 'pdf') {
       exportToPdf(exportData, 'Budget Report');
-    } else {
+    } else if (fileType === 'excel') {  
       const link = document.createElement('a');
       link.href = '/budgetReport.xlsx';
       link.setAttribute('download', 'budgetReport.xlsx');

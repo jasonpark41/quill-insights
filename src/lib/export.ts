@@ -1,3 +1,5 @@
+
+
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
@@ -264,6 +266,63 @@ export const exportToCsv = (data: any) => {
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.setAttribute('download', 'budgetReport.csv');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+// New function to export to Excel
+export const exportToExcel = () => {
+  const link = document.createElement('a');
+  link.href = '/budgetReport.xlsx'; // Path to the pre-generated file
+  link.setAttribute('download', 'budgetReport.xlsx');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+// New function to export form data to PDF
+export const exportFormToPdf = (formData: any) => {
+  const doc = new jsPDF() as jsPDFWithAutoTable;
+  let yPos = 20;
+
+  // Title
+  doc.setFontSize(18);
+  doc.setTextColor('#2B58F1');
+  doc.text('Quill Purchase Request', 14, yPos);
+  doc.setTextColor(0, 0, 0);
+  yPos += 15;
+
+  // Form Data
+  doc.setFontSize(12);
+  const formArray = Object.entries(formData).map(([key, value]) => [
+    // format key
+    key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()),
+    value
+  ]);
+
+  autoTable(doc, {
+    startY: yPos,
+    head: [['Field', 'Value']],
+    body: formArray,
+    theme: 'grid',
+    headStyles: { fillColor: [43, 88, 241] },
+    columnStyles: {
+      0: { cellWidth: 80 },
+      1: { cellWidth: 100 }
+    },
+    styles: {
+      cellPadding: 3,
+      fontSize: 10,
+      halign: 'left'
+    }
+  });
+
+  // Save as PDF
+  const pdfBlob = doc.output('blob');
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(pdfBlob as Blob);
+  link.setAttribute('download', 'purchaseRequest.pdf');
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
