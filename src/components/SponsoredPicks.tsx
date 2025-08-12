@@ -107,7 +107,7 @@ export const SponsoredPicks = ({ data }: SponsoredPicksProps) => {
             </div>
             <div>
               <h5 className="font-semibold mb-1">How are recommendations made?</h5>
-              <p className="text-sm text-muted-foreground">Our AI analyzes your purchase history to suggest cost-effective alternatives.</p>
+              <p className="text-sm text-muted-foreground">Quill Insights analyzes your purchase history to suggest cost-effective alternatives.</p>
             </div>
           </div>
         </div>
