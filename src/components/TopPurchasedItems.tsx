@@ -39,7 +39,7 @@ export const TopPurchasedItems = ({ data }: TopPurchasedItemsProps) => (
 						key={idx}
 						className="flex items-center gap-4 bg-background rounded-lg p-3 border"
 					>
-						<div className="w-14 h-14 rounded flex items-center justify-center overflow-hidden">
+						<div className="w-20 h-20 rounded flex items-center justify-center overflow-hidden">
 							<img
 								src={getProductImage(item.name)}
 								alt={item.name}

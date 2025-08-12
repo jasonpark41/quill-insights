@@ -19,8 +19,8 @@ const BudgetingDashboard = () => {
     orders: 127,
     avgOrderValue: 360,
     categoriesCount: 13,
-    estimatedSavings: 8600,
-    estimatedMissedSavings: 5320,
+    estimatedSavings: 2527,
+    estimatedMissedSavings: 2250,
     rewardsPoints: 12300
   };
 
@@ -77,7 +77,7 @@ const BudgetingDashboard = () => {
       category: 'Safety Supplies', 
       vendor: 'Ammex', 
       price: '$79.89', 
-      rewardsFeature: 'Earn 2x points on all gaming purchases', 
+      rewardsFeature: 'Earn 2x points on safety supplies purchases', 
       image: '/images/gloves.png',
       description: 'Powder-free gloves are great where residue is an issue. Latex-free to reduce risks of allergic reactions. Textured/micro-roughened surface delivers a dependable grip for working with tools.'
     },
@@ -118,8 +118,8 @@ const BudgetingDashboard = () => {
       { metric: 'Orders Placed', value: '127' },
       { metric: 'Average Order Value', value: '$360' },
       { metric: 'Categories Purchased', value: '13' },
-      { metric: 'Total Dollars Saved', value: '$8,600' },
-      { metric: 'Total Dollars Missed', value: '$5,320' },
+      { metric: 'Total Dollars Saved', value: '$2,527' },
+      { metric: 'Additional Savings Available', value: '$2,250' },
       { metric: 'Rewards+ Points', value: '12,300' }
     ],
     categorySpend: [
@@ -161,7 +161,7 @@ const BudgetingDashboard = () => {
       { Item: 'Quill Brand® File Folders, 1/3-Cut Assorted, Letter Size, Manila, 100/Box (740137)', Category: 'File Folders', 'Regular Price': '$169.90', 'Bulk Price': '$149.99', 'Bulk Quantity': '10 boxes', 'Savings (%)': '12%' }
     ],
     sponsoredPicks: [
-      { Product: 'Ammex Professional Series Powder Free Nitrile Exam Gloves, Latex Free, XL, Blue', Category: 'Safety Supplies', Vendor: 'Ammex', Price: '$79.89', 'Rewards Benefit': 'Earn 2x points on all gaming purchases' },
+      { Product: 'Ammex Professional Series Powder Free Nitrile Exam Gloves, Latex Free, XL, Blue', Category: 'Safety Supplies', Vendor: 'Ammex', Price: '$79.89', 'Rewards Benefit': 'Earn 2x points on safety supplies purchases' },
       { Product: 'Coastwide Professional Antibacterial Liquid Hand Soap Refill, 1 Gal., 4/Carton', Category: 'Hand Soap', Vendor: 'Coastwide Professional', Price: '$63.99', 'Rewards Benefit': 'Free shipping on orders over $50' },
       { Product: 'Advil Ibuprofen Pain Reliever, 200mg, 2/Packet, 50 Packets/Box', Category: 'Pain Relievers', Vendor: 'Advil', Price: '$18.56', 'Rewards Benefit': 'Earn 1 point for every dollar spent on health products' },
       { Product: 'WeCare KN95 Disposable Face Mask, Adult, Black, 20 Masks/Box, 3 Boxes/Pack', Category: 'Face Masks', Vendor: 'WeCare', Price: '$69.99', 'Rewards Benefit': 'Automatic reorder discounts available' }
@@ -258,7 +258,7 @@ const BudgetingDashboard = () => {
             <CardContent>
               <div className="text-2xl font-bold">{summaryData.categoriesCount}</div>
               <p className="text-xs text-muted-foreground">
-                Focus on Jan/San & PPE
+                Top Category: Jan/San Supplies
               </p>
             </CardContent>
           </Card>
@@ -278,13 +278,13 @@ const BudgetingDashboard = () => {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Dollars Missed</CardTitle>
-              <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Additional Savings Available</CardTitle>
+              <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-500">${summaryData.estimatedMissedSavings.toLocaleString()}</div>
+              <div className="text-2xl font-bold text-green-600">${summaryData.estimatedMissedSavings.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
-                Without smart recommendations
+                With smart recommendations
               </p>
             </CardContent>
           </Card>
@@ -354,7 +354,6 @@ const BudgetingDashboard = () => {
             <SponsoredPicks data={rewardsProducts} />
           </CardContent>
         </Card>
-
       </div>
     </div>
   );

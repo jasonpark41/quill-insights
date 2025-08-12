@@ -38,8 +38,8 @@ const PurchasingManager = () => {
       { metric: 'Orders Placed', value: '127' },
       { metric: 'Average Order Value', value: '$360' },
       { metric: 'Categories Purchased', value: '13' },
-      { metric: 'Total Dollars Saved', value: '$8,600' },
-      { metric: 'Total Dollars Missed', value: '$5,320' },
+      { metric: 'Total Dollars Saved', value: '$2,527' },
+      { metric: 'Additional Savings Available', value: '$2,250' },
       { metric: 'Rewards+ Points', value: '12,300' }
     ],
     categorySpend: [
@@ -81,7 +81,7 @@ const PurchasingManager = () => {
       { Item: 'Quill Brand® File Folders, 1/3-Cut Assorted, Letter Size, Manila, 100/Box (740137)', Category: 'File Folders', 'Regular Price': '$169.90', 'Bulk Price': '$149.99', 'Bulk Quantity': '10 boxes', 'Savings (%)': '12%' }
     ],
     sponsoredPicks: [
-      { Product: 'Ammex Professional Series Powder Free Nitrile Exam Gloves, Latex Free, XL, Blue', Category: 'Safety Supplies', Vendor: 'Ammex', Price: '$79.89', 'Rewards Benefit': 'Earn 2x points on all gaming purchases' },
+      { Product: 'Ammex Professional Series Powder Free Nitrile Exam Gloves, Latex Free, XL, Blue', Category: 'Safety Supplies', Vendor: 'Ammex', Price: '$79.89', 'Rewards Benefit': 'Earn 2x points on all safety supplies purchases' },
       { Product: 'Coastwide Professional Antibacterial Liquid Hand Soap Refill, 1 Gal., 4/Carton', Category: 'Hand Soap', Vendor: 'Coastwide Professional', Price: '$63.99', 'Rewards Benefit': 'Free shipping on orders over $50' },
       { Product: 'Advil Ibuprofen Pain Reliever, 200mg, 2/Packet, 50 Packets/Box', Category: 'Pain Relievers', Vendor: 'Advil', Price: '$18.56', 'Rewards Benefit': 'Earn 1 point for every dollar spent on health products' },
       { Product: 'WeCare KN95 Disposable Face Mask, Adult, Black, 20 Masks/Box, 3 Boxes/Pack', Category: 'Face Masks', Vendor: 'WeCare', Price: '$69.99', 'Rewards Benefit': 'Automatic reorder discounts available' }
@@ -414,6 +414,8 @@ const PurchasingManager = () => {
           </CardContent>
         </Card>
       </div>
+
+      
     </div>
   );
 };
