@@ -355,6 +355,14 @@ const BudgetingDashboard = () => {
           </CardContent>
         </Card>
       </div>
+
+      <footer className="bg-gray-50 border-t border-gray-200 py-6 mt-12">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm text-muted-foreground">
+            Created by Jason Park (Intern 2025)
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
